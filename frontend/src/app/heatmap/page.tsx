@@ -1,3 +1,5 @@
+// src/app/heatmap/page.tsx
+
 "use client";
 
 import { useState } from "react";
@@ -23,20 +25,20 @@ export default function HeatmapPage() {
   ];
 
   return (
-    <main className="min-h-screen w-full bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900 text-white p-4 md:p-8">
+    <main className="min-h-screen w-full bg-white text-black p-4 md:p-8">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
           <div className="flex items-center gap-4">
             <button
               onClick={() => router.back()}
-              className="p-2 bg-white/10 hover:bg-white/20 rounded-full transition-colors"
+              className="p-2 bg-gray-100 hover:bg-gray-200 rounded-full transition-colors"
             >
               <ArrowLeft size={20} />
             </button>
             <div>
-              <h1 className="text-3xl font-bold gradient-text">Vibe Heatmap</h1>
-              <p className="text-purple-200 mt-1">
+              <h1 className="text-3xl font-bold text-black">Vibe Heatmap</h1>
+              <p className="text-gray-600 mt-1">
                 Explore emotional landscapes across the city
               </p>
             </div>
@@ -44,7 +46,7 @@ export default function HeatmapPage() {
 
           <button
             onClick={() => setShowSettings(!showSettings)}
-            className="p-2 bg-white/10 hover:bg-white/20 rounded-full transition-colors"
+            className="p-2 bg-gray-100 hover:bg-gray-200 rounded-full transition-colors"
           >
             <Settings size={20} />
           </button>
@@ -55,16 +57,16 @@ export default function HeatmapPage() {
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="glass-morphism rounded-2xl p-6 mb-8"
+            className="minimal-card p-6 mb-8"
           >
-            <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
+            <h3 className="text-lg font-semibold text-black mb-4 flex items-center gap-2">
               <MapPin size={18} />
               Location Settings
             </h3>
 
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-purple-200 mb-2">
+                <label className="block text-sm font-medium text-gray-700 mb-2">
                   Custom Location
                 </label>
                 <input
@@ -72,12 +74,12 @@ export default function HeatmapPage() {
                   value={location}
                   onChange={(e) => setLocation(e.target.value)}
                   placeholder="Enter city, state or address..."
-                  className="w-full px-4 py-2 bg-white/10 text-white placeholder-white/60 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-400"
+                  className="w-full minimal-input"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-purple-200 mb-2">
+                <label className="block text-sm font-medium text-gray-700 mb-2">
                   Popular Locations
                 </label>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
@@ -87,8 +89,8 @@ export default function HeatmapPage() {
                       onClick={() => setLocation(loc)}
                       className={`px-3 py-2 rounded-lg text-sm transition-colors ${
                         location === loc
-                          ? "bg-purple-500 text-white"
-                          : "bg-white/10 text-purple-200 hover:bg-white/20"
+                          ? "minimal-button"
+                          : "minimal-button-secondary"
                       }`}
                     >
                       {loc}
@@ -107,15 +109,15 @@ export default function HeatmapPage() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="mt-8 glass-morphism rounded-2xl p-6"
+          className="mt-8 minimal-card p-6"
         >
-          <h3 className="text-lg font-semibold text-white mb-4">
+          <h3 className="text-lg font-semibold text-black mb-4">
             How Vibe Heatmaps Work
           </h3>
 
-          <div className="grid md:grid-cols-3 gap-6 text-sm text-purple-200">
+          <div className="grid md:grid-cols-3 gap-6 text-sm text-gray-600">
             <div>
-              <h4 className="font-medium text-white mb-2">Data Collection</h4>
+              <h4 className="font-medium text-black mb-2">Data Collection</h4>
               <p>
                 We analyze real places using Google Places API combined with
                 AI-generated emotion profiles based on place characteristics,
@@ -124,7 +126,7 @@ export default function HeatmapPage() {
             </div>
 
             <div>
-              <h4 className="font-medium text-white mb-2">Emotion Mapping</h4>
+              <h4 className="font-medium text-black mb-2">Emotion Mapping</h4>
               <p>
                 Each location gets scored across 8 emotional dimensions. The
                 size and color of markers represent the intensity and dominant
@@ -133,7 +135,7 @@ export default function HeatmapPage() {
             </div>
 
             <div>
-              <h4 className="font-medium text-white mb-2">Real-time Updates</h4>
+              <h4 className="font-medium text-black mb-2">Real-time Updates</h4>
               <p>
                 Emotion data updates based on user vibe checks, reviews, and
                 contextual factors like time of day, weather, and current events
