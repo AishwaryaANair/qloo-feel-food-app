@@ -3,8 +3,9 @@ import { GeistSans } from "geist/font/sans";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Vibe Check",
-  description: "Find a place that gets you.",
+  title: "Vibe Check - Find Places That Match Your Mood",
+  description:
+    "Discover food places and experiences based on your current emotional state using AI-powered recommendations.",
 };
 
 export default function RootLayout({
@@ -13,8 +14,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={GeistSans.className}>{children}</body>
+    <html lang="en" className={GeistSans.className}>
+      <body className="antialiased">{children}</body>
     </html>
   );
 }

@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
 import * as Slider from "@radix-ui/react-slider";
 
 interface MoodSelectorProps {
@@ -16,60 +15,29 @@ interface MoodData {
 }
 
 const MOODS = [
-  {
-    id: "anxious",
-    label: "Anxious",
-    emoji: "😰",
-    color: "from-yellow-400 to-orange-500",
-  },
-  {
-    id: "lonely",
-    label: "Lonely",
-    emoji: "🥺",
-    color: "from-blue-400 to-indigo-600",
-  },
-  {
-    id: "celebratory",
-    label: "Celebratory",
-    emoji: "🎉",
-    color: "from-pink-400 to-red-500",
-  },
-  {
-    id: "nostalgic",
-    label: "Nostalgic",
-    emoji: "🌅",
-    color: "from-purple-400 to-pink-600",
-  },
-  {
-    id: "stressed",
-    label: "Stressed",
-    emoji: "😵‍💫",
-    color: "from-red-400 to-red-600",
-  },
-  {
-    id: "contemplative",
-    label: "Contemplative",
-    emoji: "🤔",
-    color: "from-teal-400 to-blue-600",
-  },
-  // TODO: Add more moods
+  { id: "anxious", label: "anxious" },
+  { id: "lonely", label: "lonely" },
+  { id: "celebratory", label: "celebratory" },
+  { id: "nostalgic", label: "nostalgic" },
+  { id: "stressed", label: "stressed" },
+  { id: "contemplative", label: "contemplative" },
+  { id: "energetic", label: "energetic" },
+  { id: "melancholic", label: "melancholic" },
 ];
 
 const CONTEXTS = [
-  "Just need comfort",
-  "Work stress",
-  "Relationship stuff",
-  "Existential thoughts",
-  "Missing home",
-  "Celebrating alone",
-  // TODO: Add more contexts
+  "just need comfort",
+  "work stress",
+  "relationship stuff",
+  "missing home",
+  "celebrating alone",
+  "existential thoughts",
 ];
 
 export default function MoodSelector({ onMoodSelect }: MoodSelectorProps) {
   const [selectedMood, setSelectedMood] = useState<string>("");
   const [intensity, setIntensity] = useState<number[]>([5]);
   const [context, setContext] = useState<string>("");
-  const [showContexts, setShowContexts] = useState(false);
 
   const handleSubmit = () => {
     if (selectedMood) {
@@ -82,108 +50,102 @@ export default function MoodSelector({ onMoodSelect }: MoodSelectorProps) {
   };
 
   return (
-    <div className="max-w-2xl mx-auto p-6">
-      <h2 className="text-3xl font-bold text-white mb-8 text-center">
-        How are you feeling right now?
-      </h2>
+    <div className="min-h-screen bg-white px-6 py-8">
+      <div className="max-w-lg mx-auto">
+        {/* Header */}
+        <div className="mb-12">
+          <h1 className="text-2xl font-bold text-black mb-2">
+            how are you feeling?
+          </h1>
+          <p className="text-gray-600">
+            be honest. we'll find places that get it.
+          </p>
+        </div>
 
-      {/* Mood Grid */}
-      <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-8">
-        {MOODS.map((mood) => (
-          <motion.button
-            key={mood.id}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={() => {
-              setSelectedMood(mood.id);
-              setShowContexts(true);
-            }}
-            className={`p-6 rounded-2xl bg-gradient-to-br ${
-              selectedMood === mood.id
-                ? mood.color
-                : "from-gray-600 to-gray-700"
-            } transition-all duration-300`}
-          >
-            <div className="text-4xl mb-2">{mood.emoji}</div>
-            <div className="text-white font-medium">{mood.label}</div>
-          </motion.button>
-        ))}
-      </div>
-
-      {/* Intensity Slider */}
-      {selectedMood && (
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="mb-8"
-        >
-          <label className="text-white text-lg mb-4 block">
-            How intense is this feeling?
-          </label>
-          <Slider.Root
-            className="relative flex items-center select-none touch-none w-full h-5"
-            value={intensity}
-            onValueChange={setIntensity}
-            max={10}
-            min={1}
-            step={1}
-          >
-            <Slider.Track className="bg-white/20 relative grow rounded-full h-2">
-              <Slider.Range className="absolute bg-white rounded-full h-full" />
-            </Slider.Track>
-            <Slider.Thumb
-              className="block w-5 h-5 bg-white rounded-full shadow-lg hover:shadow-xl focus:outline-none"
-              aria-label="Intensity"
-            />
-          </Slider.Root>
-          <div className="flex justify-between mt-2 text-sm text-white/60">
-            <span>Mild</span>
-            <span>Intense</span>
-          </div>
-        </motion.div>
-      )}
-
-      {/* Context Options */}
-      {showContexts && (
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="mb-8"
-        >
-          <label className="text-white text-lg mb-4 block">
-            Want to share what's behind it? (Optional)
-          </label>
+        {/* Mood Selection */}
+        <div className="mb-8">
           <div className="grid grid-cols-2 gap-3">
-            {CONTEXTS.map((ctx) => (
+            {MOODS.map((mood) => (
               <button
-                key={ctx}
-                onClick={() => setContext(ctx)}
-                className={`p-3 rounded-lg text-sm transition-all ${
-                  context === ctx
-                    ? "bg-white text-purple-900"
-                    : "bg-white/10 text-white hover:bg-white/20"
+                key={mood.id}
+                onClick={() => setSelectedMood(mood.id)}
+                className={`p-4 rounded-xl text-left transition-colors ${
+                  selectedMood === mood.id
+                    ? "bg-black text-white"
+                    : "bg-gray-50 text-black hover:bg-gray-100"
                 }`}
               >
-                {ctx}
+                <span className="font-medium">{mood.label}</span>
               </button>
             ))}
           </div>
-        </motion.div>
-      )}
+        </div>
 
-      {/* Submit Button */}
-      {selectedMood && (
-        <motion.button
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          whileHover={{ scale: 1.02 }}
-          whileTap={{ scale: 0.98 }}
-          onClick={handleSubmit}
-          className="w-full py-4 bg-white text-purple-900 rounded-xl font-semibold text-lg hover:bg-purple-100 transition-colors"
-        >
-          Find my comfort zone
-        </motion.button>
-      )}
+        {/* Intensity Slider */}
+        {selectedMood && (
+          <div className="mb-8">
+            <label className="block text-black font-medium mb-4">
+              how intense? ({intensity[0]}/10)
+            </label>
+            <div className="px-2">
+              <Slider.Root
+                className="relative flex items-center select-none touch-none w-full h-6"
+                value={intensity}
+                onValueChange={setIntensity}
+                max={10}
+                min={1}
+                step={1}
+              >
+                <Slider.Track className="bg-gray-200 relative grow rounded-full h-2">
+                  <Slider.Range className="absolute bg-black rounded-full h-full" />
+                </Slider.Track>
+                <Slider.Thumb
+                  className="block w-6 h-6 bg-black rounded-full shadow-sm hover:shadow-md focus:outline-none border-2 border-white"
+                  aria-label="Intensity"
+                />
+              </Slider.Root>
+            </div>
+            <div className="flex justify-between mt-2 text-sm text-gray-500">
+              <span>barely</span>
+              <span>intensely</span>
+            </div>
+          </div>
+        )}
+
+        {/* Context */}
+        {selectedMood && (
+          <div className="mb-12">
+            <label className="block text-black font-medium mb-4">
+              what's behind it? (optional)
+            </label>
+            <div className="grid grid-cols-1 gap-2">
+              {CONTEXTS.map((ctx) => (
+                <button
+                  key={ctx}
+                  onClick={() => setContext(ctx)}
+                  className={`p-3 rounded-lg text-left text-sm transition-colors ${
+                    context === ctx
+                      ? "bg-black text-white"
+                      : "bg-gray-50 text-gray-700 hover:bg-gray-100"
+                  }`}
+                >
+                  {ctx}
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Submit */}
+        {selectedMood && (
+          <button
+            onClick={handleSubmit}
+            className="w-full minimal-button py-4 px-6 text-lg"
+          >
+            find my vibe
+          </button>
+        )}
+      </div>
     </div>
   );
 }
